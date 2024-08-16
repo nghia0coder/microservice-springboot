@@ -1,0 +1,15 @@
+server:
+  port: 8000
+  error:
+    include-binding-errors: always
+application:
+  config:
+    customer-url: http://localhost:8010/api/customer
+    payment-url: http://localhost:8060/api/payments
+    product-url: http://localhost:8222/api/products
+    category-url: http://localhost:8050/api/category
+    order-url: http://localhost:8222/api/orders
+    authentication-url: http://localhost:8222/auth/login
+jwt:
+  signerKey: "Ol1pOhxUJDUXYs3tGCH+9LGUpYaUdfatZVYx2OsevGlqat19PMR2P+fZd4yS3zdn"
+  valid-duration: 3600

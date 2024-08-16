@@ -1,0 +1,61 @@
+package com.ecommercial.frontend.service;
+
+
+import com.ecommercial.frontend.models.request.RegisterRequest;
+import com.ecommercial.frontend.models.request.RequestDTO;
+import com.ecommercial.frontend.models.response.APIResponse;
+import com.ecommercial.frontend.models.response.RegisterResponse;
+import com.ecommercial.frontend.ultilities.SD;
+import com.ecommercial.frontend.ultilities.UrlConfig;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.experimental.FieldDefaults;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.io.IOException;
+
+@Service
+@AllArgsConstructor
+@FieldDefaults(level = AccessLevel.PRIVATE,makeFinal = true)
+public class CustomerService {
+    BaseService baseService;
+
+    @Autowired
+    UrlConfig applicationConfig;
+
+    public APIResponse register(RegisterRequest request)
+    {
+        RequestDTO requestDTO = new RequestDTO();
+        requestDTO.setAPItype(SD.ApiType.POST);
+        requestDTO.setUrl(applicationConfig.getCustomerUrl());
+        requestDTO.setData(request);
+        requestDTO.setContentType(SD.ContentType.Json);
+
+        return baseService.Send(requestDTO);
+    }
+
+    public Object deserializeObject(String jsonString)
+    {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+            JsonNode rootNode = objectMapper.readTree(jsonString);
+            JsonNode resultNode = rootNode.path("message");
+
+            if (resultNode.isObject()) {
+
+                return objectMapper.readValue(resultNode.toString(), RegisterResponse.class);
+            } else {
+                // Handle unexpected cases or throw an exception
+                throw new IllegalArgumentException("Invalid JSON format: 'message' should be either an array or an object.");
+            }
+        }
+        catch (IOException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+}

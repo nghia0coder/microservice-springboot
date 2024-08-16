@@ -1,0 +1,7 @@
+spring:
+  config:
+    import: optional:configserver:http://localhost:8888
+  application:
+    name: order-service
+stripe:
+  secretKey: "sk_test_51PbaGyDsmPOGIWrwCX6aBxBplHu9q0ljpoBKRO4rIZ6IfUvCzhYzGiCHf8fd0li5ohjJlQaptjA7MDb4CQAOqQff00f2CF3INQ"

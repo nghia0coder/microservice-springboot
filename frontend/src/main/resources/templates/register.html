@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<!-- Website - www.codingnepalweb.com -->
+<html lang="en" dir="ltr" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Animated Login Form | CodingNepal</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+    <link th:href="@{/css/login.css}" rel="stylesheet" />
+</head>
+<body>
+<div class="center">
+    <h1>Register</h1>
+    <div th:if="${message}" th:class="'alert ' + ${alertClass}" role="alert">
+        <span th:text="${message}"></span>
+    </div>
+    <form  th:action="@{/registerConfirm}" th:object="${register}" method="post"  id="registerForm">
+        <div class="txt_field">
+            <input type="text" required  th:field="*{username}" />
+            <span></span>
+            <label>Username</label>
+        </div>
+        <span th:if="${#fields.hasErrors('username')}" class="alert alert-danger" th:errors="*{username}"></span>
+        <div class="txt_field">
+            <input type="password" required th:field="*{password}" id="password"  />
+            <label>Password</label>
+        </div>
+        <span th:if="${#fields.hasErrors('password')}" class="alert alert-danger" th:errors="*{password}"></span>
+        <div class="txt_field">
+            <input type="password" required   id="confirmPassword" />
+            <span></span>
+            <label>Confirm Password</label>
+            <div id="passwordMismatch" class="alert alert-danger" style="display:none">Password Do Not Match!</div>
+        </div>
+        <div class="txt_field">
+            <input type="text" required th:field="*{firstname}"  />
+            <span></span>
+            <label>Firstname</label>
+        </div>
+        <div class="txt_field">
+            <input type="text" required th:field="*{lastname}" />
+            <span></span>
+            <label>Lastname</label>
+        </div>
+        <div class="txt_field">
+            <input type="text" required th:field="*{email}" />
+            <span></span>
+            <label>email</label>
+        </div>
+        <div class="txt_field">
+            <input type="text" required th:field="*{address}" />
+            <span></span>
+            <label>address</label>
+        </div>
+        <div class="txt_field">
+            <input type="date" required th:field="*{dob}" />
+            <span></span>
+            <label>Date Of Birth</label>
+        </div>
+        <input type="submit" value="Register" />
+        <div class="signup_link">Already have account? <a href="#">Login</a></div>
+    </form>
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function (event) {
+    var password = document.getElementById('password').value;
+    var confirmPassword = document.getElementById('confirmPassword').value;
+    var passwordMismatchAlert = document.getElementById('passwordMismatch');
+
+
+    if (password !== confirmPassword) {
+
+        passwordMismatchAlert.style.display = 'block';
+
+
+        event.preventDefault();
+    } else {
+
+        passwordMismatchAlert.style.display = 'none';
+    }
+});
+
+document.getElementById('confirmPassword').addEventListener('input', function () {
+    var password = document.getElementById('password').value;
+    var confirmPassword = this.value;
+    var passwordMismatchAlert = document.getElementById('passwordMismatch');
+
+    // Hiển thị cảnh báo nếu mật khẩu không khớp trong quá trình nhập liệu
+    if (password !== confirmPassword) {
+        passwordMismatchAlert.style.display = 'block';
+    } else {
+        passwordMismatchAlert.style.display = 'none';
+    }
+});
+
+        document.getElementById('confirmPassword').addEventListener('input', function () {
+            var password = document.getElementById('password').value;
+            var confirmPassword = this.value;
+            var passwordAlert = document.getElementById('passwordMismatch');
+
+            if(password != confirmPassword)
+            {
+               passwordAlert.style.display = 'block';
+            }
+            else
+            {
+               passwordAlert.style.display = 'none';
+            }
+
+        });
+(document).ready(function() {
+        setTimeout(function() {
+            $('.alert').fadeOut('slow');
+        }, 3000); // 3 seconds
+    });
+    </script>
+</div>
+</body>
+</html>

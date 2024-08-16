@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{/layout}"
+>
+<head>
+    <title>Create Category</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body layout:fragment="body">
+<div class="card-header bg-secondary bg-gradient ml-0 py-3">
+    <div class="row">
+        <div class="col-12 text-center">
+            <h1 class="text-white">Category Create</h1>
+        </div>
+    </div>
+</div>
+<form th:action="@{/createCategory}" th:object="${category}" method="post">
+    <br />
+    <div class="container border p-3">
+        <h1 class="text-white text-center">Create Category</h1>
+        <hr />
+        <div class="row">
+            <div class="col-2">
+                <label class="control-label pt-2" style="font-size:20px;">Category Name</label>
+            </div>
+            <div class="col-10 pb-3">
+                <input class="form-control" type="text" th:field="*{name}" />
+                <div th:if="${#fields.hasErrors('name')}" class="alert alert-danger" th:errors="*{name}">Name Error</div>
+            </div>
+            <div class="col-5 offset-2">
+                <a class="btn-primary btn form-control" href="#" th:href="@{/categoryIndex}">Back to List</a>
+            </div>
+            <div class="col-5">
+                <input type="submit" value="Create" class="btn btn-success form-control" />
+            </div>
+        </div>
+    </div>
+</form>
+</body>
+</html>

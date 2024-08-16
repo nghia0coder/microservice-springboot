@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:sec="http://www.thymeleaf.org"
+    >
+<head th:fragment="header">
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+
+    <link th:href="@{/css/styles.css}" rel="stylesheet" />
+    <title>Microservice Demo</title>
+
+</head>
+<body>
+<!-- Navigation-->
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <div class="container px-4 px-lg-5">
+        <a class="navbar-brand" th:href="@{/home/index}">Home</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><span class="navbar-toggler-icon"></span></button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 ms-lg-4">
+                <li class="nav-item"><a class="nav-link" href="#!">About</a></li>
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                        <li><a class="dropdown-item" href="#!">All Products</a></li>
+                        <li><hr class="dropdown-divider" /></li>
+                        <li><a class="dropdown-item" href="#!">Popular Items</a></li>
+                        <li><a class="dropdown-item" href="#!">New Arrivals</a></li>
+                    </ul>
+                </li>
+
+                <li class="nav-item dropdown" th:if="${session.role == 'ADMIN'}">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown1" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Management</a>
+                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown1">
+                        <li>
+                            <a class="dropdown-item" th:href="@{/productIndex}">Product</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" th:href="@{/categoryIndex}" href="#!">Category</a>
+                        </li>
+                    </ul>
+                </li>
+
+            </ul>
+            <a class="d-flex" th:href="@{/cartIndex}" style="margin-right: 10px;">
+                <button class="btn btn-outline-dark" type="submit">
+                    <i class="bi-cart-fill"></i>
+                    Cart
+                </button>
+            </a>
+            <div th:if="${username != null}">
+                <div class="d-flex align-items-center">
+                    <span>Hello, <span th:text="${username}">Username</span>!</span>
+                    <form th:action="@{/logout}" method="post" class="ms-3">
+                        <button class="btn btn-outline-dark" type="submit">
+                            <i class="bi bi-people-fill"></i>
+                            Logout
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <div th:if="${username == null}">
+                <a class="d-flex" th:href="@{/login}">
+                    <button class="btn btn-outline-dark" type="submit">
+                        <i class="bi bi-people-fill"></i>
+                        Login
+                    </button>
+                </a>
+            </div>
+
+        </div>
+    </div>
+</nav>
+<body layout:fragment="body">
+
+</body>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Core theme JS-->
+<script src="/js/scripts.js"></script>
+
+</body>
+
+</html>

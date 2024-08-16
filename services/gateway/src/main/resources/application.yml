@@ -1,0 +1,8 @@
+spring:
+  config:
+    import: optional:configserver:http://localhost:8888
+  application:
+    name: gateway-service
+jwt:
+  signerKey: "Ol1pOhxUJDUXYs3tGCH+9LGUpYaUdfatZVYx2OsevGlqat19PMR2P+fZd4yS3zdn"
+  valid-duration: 3600

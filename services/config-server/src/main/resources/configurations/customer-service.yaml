@@ -1,0 +1,12 @@
+spring:
+  data:
+    mongodb:
+      username: nghia
+      password: 123456
+      host: localhost
+      port: 27018
+      database: customer
+      authentication-database: admin
+      uri: mongodb://nghia:123456@localhost:27018/customer?authSource=admin
+server:
+  port: 8010
